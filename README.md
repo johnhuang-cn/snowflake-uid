@@ -10,7 +10,7 @@ The kubernetes pod CIDR is less than /24, so this generator is suitable for k8s 
 
 UidGenerator是基于Twitter Snowflake算法的分布式ID生成器，参考了百度的实现[https://github.com/baidu/uid-generator](https://github.com/baidu/uid-generator). 不过相对来说要更简单并且不依赖于DB。其默认实现使用28位的时间，24位的worker id和最后的11位用于生成序列。提供单实例每秒2048个序列号，可使用8.7年。
 
-这么做的目的是为了让其适合在K8S环境中使用，因为K8S默认的CIDR是/24，所以使用24位worker id可保证每个实例生成的ID的唯一性。当然相应的，单例每秒的id数要少些，不过对大部分应用也是够的，而且通常高可用环境下每个应用不止一个实例。如果运行的k8s环境的CIDR可以设置为/16，那么可以将时间和序列的位数各加的，这样就可以支持每秒32768个序列，并能使用128年。
+这么做的目的是为了让其适合在K8S环境中使用，因为K8S默认的CIDR是/24，所以使用24位worker id可保证每个实例生成的ID的唯一性。当然相应的，单例每秒的id数要少些，不过对大部分应用也是够的，而且通常高可用环境下每个应用不止一个实例。如果运行的k8s环境的CIDR可以设置为/16，那么可以将时间和序列的位数各加4个，这样就可以支持每秒32768个序列，并能使用128年。
 
 ## Snowflake
 
